@@ -131,27 +131,27 @@ payer-policy-crawler/
 
 ```text
                     ┌──────────────────────────────┐
-                    │       Payer Configuration     │
-                    │  payer_seed_list.csv          │
+                    │       Payer Configuration    │
+                    │  payer_seed_list.csv         │
                     └──────────────┬───────────────┘
                                    │
                                    ▼
                     ┌──────────────────────────────┐
-                    │      Crawl Orchestrator       │
+                    │      Crawl Orchestrator      │
                     │                              │
-                    │  • Payer scheduling           │
-                    │  • Concurrency control        │
-                    │  • Checkpoint / resume        │
+                    │  • Payer scheduling          │
+                    │  • Concurrency control       │
+                    │  • Checkpoint / resume       │
                     └──────────────┬───────────────┘
                                    │
                                    ▼
         ┌─────────────────────────────────────────────────────┐
-        │                 DISCOVERY LAYER                      │
+        │                 DISCOVERY LAYER                     │
         │                                                     │
-        │  robots.txt → Sitemap → HTML → Document Candidates │
+        │  robots.txt → Sitemap → HTML → Document Candidates  │
         │                                                     │
         │  • Sitemap indexes                                  │
-        │  • Policy/provider pages                             │
+        │  • Policy/provider pages                            │
         │  • Document links                                   │
         │  • Viewer/PDF discovery                             │
         └────────────────────────┬────────────────────────────┘
@@ -160,7 +160,7 @@ payer-policy-crawler/
         ┌─────────────────────────────────────────────────────┐
         │                DOCUMENT RESOLUTION                  │
         │                                                     │
-        │  Candidate URL → Redirects → Viewer → Final URL    │
+        │  Candidate URL → Redirects → Viewer → Final URL     │
         │                                                     │
         │  • Follow redirects                                 │
         │  • Resolve document viewers                         │
@@ -184,7 +184,7 @@ payer-policy-crawler/
                                  │
                                  ▼
         ┌─────────────────────────────────────────────────────┐
-        │              QUALITY & NORMALIZATION                 │
+        │              QUALITY & NORMALIZATION                │
         │                                                     │
         │  • SHA-256 / file size                              │
         │  • Confidence score                                 │
@@ -195,14 +195,14 @@ payer-policy-crawler/
                                  │
                                  ▼
         ┌─────────────────────────────────────────────────────┐
-        │                  PERSISTENCE                         │
+        │                  PERSISTENCE                        │
         │                                                     │
         │  Per-payer results │ Checkpoints │ Run logs         │
         └────────────────────────┬────────────────────────────┘
                                  │
                                  ▼
         ┌─────────────────────────────────────────────────────┐
-        │                     OUTPUT                           │
+        │                     OUTPUT                          │
         │                                                     │
         │  output.csv │ summary.json │ run_log.jsonl          │
         └────────────────────────┬────────────────────────────┘
