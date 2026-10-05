@@ -1,0 +1,2 @@
+[console_scripts]
+payer-policy-crawler = payer_policy_crawler.main:main

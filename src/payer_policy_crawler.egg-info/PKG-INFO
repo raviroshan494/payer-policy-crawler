@@ -1,0 +1,16 @@
+Metadata-Version: 2.4
+Name: payer-policy-crawler
+Version: 0.1.0
+Summary: Public payer medical-policy document discovery crawler
+Requires-Python: >=3.12
+Requires-Dist: httpx
+Requires-Dist: beautifulsoup4
+Requires-Dist: lxml
+Requires-Dist: pymupdf
+Requires-Dist: pandas
+Requires-Dist: pydantic
+Requires-Dist: pyyaml
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: pytest-asyncio; extra == "dev"
+Requires-Dist: ruff; extra == "dev"

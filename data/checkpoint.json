@@ -1,0 +1,12 @@
+{
+  "BCBST (BCBS Tennessee)": "blocked",
+  "CareSource": "blocked",
+  "Centene": "blocked",
+  "Cigna": "completed",
+  "Elevance / Anthem": "completed",
+  "Geisinger": "blocked",
+  "Highmark": "completed",
+  "Horizon BCBS NJ": "no_documents_found",
+  "UHC": "completed",
+  "UPMC Health Plan": "completed"
+}

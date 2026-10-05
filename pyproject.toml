@@ -1,0 +1,32 @@
+[project]
+name = "payer-policy-crawler"
+version = "0.1.0"
+description = "Public payer medical-policy document discovery crawler"
+requires-python = ">=3.12"
+dependencies = [
+    "httpx",
+    "beautifulsoup4",
+    "lxml",
+    "pymupdf",
+    "pandas",
+    "pydantic",
+    "pyyaml",
+    "streamlit",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-asyncio",
+    "ruff",
+]
+
+[project.scripts]
+payer-policy-crawler = "payer_policy_crawler.main:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

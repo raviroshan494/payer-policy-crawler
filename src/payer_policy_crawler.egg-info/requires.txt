@@ -1,0 +1,12 @@
+httpx
+beautifulsoup4
+lxml
+pymupdf
+pandas
+pydantic
+pyyaml
+
+[dev]
+pytest
+pytest-asyncio
+ruff

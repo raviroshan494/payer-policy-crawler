@@ -1,0 +1,19 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+
+.env
+
+data/*.db
+data/cache/
+
+# output/*.csv
+# output/*.xlsx
+# output/*.jsonl
+
+*.log
+other/
+.DS_Store
+venv/
