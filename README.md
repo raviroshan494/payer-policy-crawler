@@ -130,54 +130,92 @@ payer-policy-crawler/
 ## Architecture at a glance
 
 ```text
-                    payer_seed_list.csv
-                            │
-                            ▼
-                       config.py
-                            │
-                            ▼
-                        main.py
-                            │
-                            ▼
-                     payer_runner.py
-                            │
-              ┌─────────────┴─────────────┐
-              ▼                           ▼
-         discovery.py                checkpoint.py
-              │
-       ┌──────┼────────┐
-       ▼      ▼        ▼
-    robots  sitemap  HTML discovery
-       │      │        │
-       └──────┼────────┘
-              ▼
-        document candidates
-              │
-              ▼
-      document_resolver.py
-              │
-              ▼
-       document download
-              │
-       ┌──────┴───────────┐
-       ▼                  ▼
- file_detector       PDF/parser/metadata
-       │                  │
-       └────────┬─────────┘
-                ▼
-        record_builder.py
-                │
-                ▼
-       record_validator.py
-                │
-                ▼
-       payer_storage.py
-                │
-                ▼
-          Global dedup
-                │
-                ▼
-           output.csv
+                    ┌──────────────────────────────┐
+                    │       Payer Configuration     │
+                    │  payer_seed_list.csv          │
+                    └──────────────┬───────────────┘
+                                   │
+                                   ▼
+                    ┌──────────────────────────────┐
+                    │      Crawl Orchestrator       │
+                    │                              │
+                    │  • Payer scheduling           │
+                    │  • Concurrency control        │
+                    │  • Checkpoint / resume        │
+                    └──────────────┬───────────────┘
+                                   │
+                                   ▼
+        ┌─────────────────────────────────────────────────────┐
+        │                 DISCOVERY LAYER                      │
+        │                                                     │
+        │  robots.txt → Sitemap → HTML → Document Candidates │
+        │                                                     │
+        │  • Sitemap indexes                                  │
+        │  • Policy/provider pages                             │
+        │  • Document links                                   │
+        │  • Viewer/PDF discovery                             │
+        └────────────────────────┬────────────────────────────┘
+                                 │
+                                 ▼
+        ┌─────────────────────────────────────────────────────┐
+        │                DOCUMENT RESOLUTION                  │
+        │                                                     │
+        │  Candidate URL → Redirects → Viewer → Final URL    │
+        │                                                     │
+        │  • Follow redirects                                 │
+        │  • Resolve document viewers                         │
+        │  • Identify final document URL                      │
+        └────────────────────────┬────────────────────────────┘
+                                 │
+                                 ▼
+        ┌─────────────────────────────────────────────────────┐
+        │              DOCUMENT PROCESSING                    │
+        │                                                     │
+        │  Fetch → Detect → Parse → Extract → Classify        │
+        │                                                     │
+        │  • File type                                        │
+        │  • PDF text / metadata                              │
+        │  • Policy number                                    │
+        │  • Effective / updated dates                        │
+        │  • State / region                                   │
+        │  • Line of business                                 │
+        │  • Document type                                    │
+        └────────────────────────┬────────────────────────────┘
+                                 │
+                                 ▼
+        ┌─────────────────────────────────────────────────────┐
+        │              QUALITY & NORMALIZATION                 │
+        │                                                     │
+        │  • SHA-256 / file size                              │
+        │  • Confidence score                                 │
+        │  • Schema validation                                │
+        │  • URL normalization                                │
+        │  • Global deduplication                             │
+        └────────────────────────┬────────────────────────────┘
+                                 │
+                                 ▼
+        ┌─────────────────────────────────────────────────────┐
+        │                  PERSISTENCE                         │
+        │                                                     │
+        │  Per-payer results │ Checkpoints │ Run logs         │
+        └────────────────────────┬────────────────────────────┘
+                                 │
+                                 ▼
+        ┌─────────────────────────────────────────────────────┐
+        │                     OUTPUT                           │
+        │                                                     │
+        │  output.csv │ summary.json │ run_log.jsonl          │
+        └────────────────────────┬────────────────────────────┘
+                                 │
+                                 ▼
+                    ┌──────────────────────────────┐
+                    │       Streamlit Dashboard    │
+                    │                              │
+                    │  • Run status                │
+                    │  • Payer metrics             │
+                    │  • Documents                 │
+                    │  • Logs                      │
+                    └──────────────────────────────┘
 ```
 
 ## Installation
