@@ -38,13 +38,17 @@ def build_document_record(
         discovery_path += " > " + " > ".join(
             resolved.resolution_path[1:]
         )
+
     confidence_score = calculate_confidence(
     metadata=metadata,
     http_status=result.status_code,
     content_hash=sha256_hex(result.content),
     discovery_path=discovery_path,
     requires_auth="N",
+    document_url=resolved.document_url,
 )
+
+
     record =  DocumentRecord(
         payer_name=candidate.payer_name,
         payer_alias="",

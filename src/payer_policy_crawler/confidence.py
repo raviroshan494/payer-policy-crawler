@@ -7,6 +7,7 @@ def calculate_confidence(
     content_hash: str,
     discovery_path: str,
     requires_auth: str,
+    document_url: str,
 ) -> float:
     score = 0.0
 
@@ -21,6 +22,10 @@ def calculate_confidence(
     # We have a reproducible discovery path.
     if discovery_path:
         score += 0.15
+
+    # Document has a valid resolved URL.
+    if document_url:
+        score += 0.05
 
     # Document has a title.
     if metadata.document_title:

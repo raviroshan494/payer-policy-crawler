@@ -230,42 +230,42 @@ The final CSV is written as UTF-8 CSV using the required 22-column schema.
 ---
 ## 11. Confidence Score Logic
 
-Each document record receives a deterministic `confidence_score` between `0.00`
-and `1.00`.
+Each document record receives a deterministic confidence score between `0.00` and
+`1.00`.
 
-The score is intended to indicate the reliability and completeness of the discovered
-record, rather than the probability that the underlying payer document is correct.
+The score represents the completeness and reliability of the information collected
+during crawling. It is not intended to represent the probability that the underlying
+payer document is valid.
 
-The score is calculated from independent signals available during crawling:
+The score is calculated using the following signals:
 
 | Signal | Score contribution |
 |---|---:|
-| Successful document HTTP response | +0.20 |
-| SHA-256 content hash available | +0.15 |
-| Complete discovery path available | +0.15 |
-| Document title successfully identified | +0.10 |
-| Document type successfully classified | +0.10 |
-| File type successfully identified | +0.10 |
-| Effective date identified | +0.05 |
-| Last-updated date identified | +0.05 |
-| Authentication status determined | +0.05 |
-| Valid resolved document URL | +0.05 |
+| HTTP response status is `200` | +0.20 |
+| Content SHA-256 hash is available | +0.20 |
+| Discovery path is available | +0.15 |
+| Valid resolved document URL is available | +0.05 |
+| Document title is available | +0.10 |
+| Document type is classified as something other than `other` | +0.10 |
+| File type is detected as something other than `other` | +0.05 |
+| Effective date is available | +0.05 |
+| Last updated date is available | +0.05 |
+| Authentication is not required | +0.05 |
+| **Maximum score** | **1.00** |
 
-The resulting score is capped at `1.00` and written with two decimal places.
+The individual contributions are added together and the final value is rounded to two
+decimal places and capped at `1.00`.
 
-For example, a successfully downloaded PDF with a resolved URL, complete discovery
-path, title, classification, file type, hash, and authentication status will receive
-a substantially higher confidence score than a record where only the URL and HTTP
-status are known.
+A score of `1.00` indicates that all defined quality signals are available. Lower
+scores indicate that one or more pieces of information could not be reliably
+determined.
 
-Scores below `0.70` are considered lower-confidence records and should include an
-explanation in the `notes` field when the available information is incomplete or
-ambiguous.
+Scores below `0.70` should be treated as lower-confidence records and reviewed using
+the associated metadata, discovery path, HTTP status, and notes.
 
 The confidence score does not cause a document to be discarded. Lower-confidence
 records are retained so that the final dataset remains auditable and reviewers can
 inspect the underlying discovery information.
-
 
 ---
 
