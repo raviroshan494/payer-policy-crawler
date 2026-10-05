@@ -187,8 +187,6 @@ Python 3.12+ is recommended.
 ```bash
 python -m venv venv
 source venv/bin/activate
-
-pip install -e .
 ```
 
 For the Streamlit dashboard:
