@@ -228,8 +228,48 @@ Before producing the final dataset, records are validated for:
 The final CSV is written as UTF-8 CSV using the required 22-column schema.
 
 ---
+## 11. Confidence Score Logic
 
-## 11. Operational UI
+Each document record receives a deterministic `confidence_score` between `0.00`
+and `1.00`.
+
+The score is intended to indicate the reliability and completeness of the discovered
+record, rather than the probability that the underlying payer document is correct.
+
+The score is calculated from independent signals available during crawling:
+
+| Signal | Score contribution |
+|---|---:|
+| Successful document HTTP response | +0.20 |
+| SHA-256 content hash available | +0.15 |
+| Complete discovery path available | +0.15 |
+| Document title successfully identified | +0.10 |
+| Document type successfully classified | +0.10 |
+| File type successfully identified | +0.10 |
+| Effective date identified | +0.05 |
+| Last-updated date identified | +0.05 |
+| Authentication status determined | +0.05 |
+| Valid resolved document URL | +0.05 |
+
+The resulting score is capped at `1.00` and written with two decimal places.
+
+For example, a successfully downloaded PDF with a resolved URL, complete discovery
+path, title, classification, file type, hash, and authentication status will receive
+a substantially higher confidence score than a record where only the URL and HTTP
+status are known.
+
+Scores below `0.70` are considered lower-confidence records and should include an
+explanation in the `notes` field when the available information is incomplete or
+ambiguous.
+
+The confidence score does not cause a document to be discarded. Lower-confidence
+records are retained so that the final dataset remains auditable and reviewers can
+inspect the underlying discovery information.
+
+
+---
+
+## 12. Operational UI
 
 A lightweight Streamlit application is included for reviewing crawler results.
 
@@ -250,7 +290,7 @@ Run it with:
 streamlit run streamlit_app.py
 ```
 
-## 12. Trade-offs
+## 13. Trade-offs
 
 The implementation favors traceability, safety, and deterministic behavior over
 aggressive crawling.

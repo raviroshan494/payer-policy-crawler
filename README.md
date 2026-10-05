@@ -364,6 +364,14 @@ HTTP requests use bounded concurrency and connection pools. Transient failures s
 as HTTP 429, 500, 502, 503, and 504 are retried using exponential backoff,
 with Retry-After honored when provided.
 
+### Confidence Scoring
+
+Each document receives a deterministic `0.00–1.00` confidence score based on
+signals such as HTTP success, URL resolution, discovery traceability, document
+metadata, file identification, hashing, and authentication detection.
+
+The detailed scoring methodology is documented in `NOTES.md`.
+
 ## Streamlit Dashboard
 
 A lightweight dashboard is included for reviewing crawler execution and output.
@@ -385,6 +393,7 @@ The dashboard provides:
 - structured execution-log inspection
 
 The dashboard reads the crawler artifacts directly and does not modify crawler state.
+
 
 ## Design Notes
 
