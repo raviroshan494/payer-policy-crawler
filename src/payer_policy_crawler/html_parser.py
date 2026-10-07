@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from urllib.parse import urljoin, urlparse
 import re
 from bs4 import BeautifulSoup
+from urllib.parse import urlparse
 
 
 @dataclass
@@ -61,7 +62,6 @@ POLICY_KEYWORDS = {
     "policy",
 }
 
-from urllib.parse import urlparse
 
 
 DOCUMENT_EXTENSIONS = {
@@ -100,7 +100,7 @@ def is_relevant_link(url: str, anchor_text: str) -> bool:
     )
 
 
-import re
+
 
 
 def extract_viewer_pdf_url(html: bytes) -> str | None:

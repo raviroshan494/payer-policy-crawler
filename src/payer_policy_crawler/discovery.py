@@ -111,6 +111,7 @@ async def discover_payer(
     payer_name: str,
     seed_url: str,
     start_pages: list[str],
+    ignore_robots: bool = False,
 ) -> DiscoveryResult:
 
     candidates: list[CandidateURL] = []
@@ -123,6 +124,10 @@ async def discover_payer(
     # ---------------------------------------------------------
     # 1. Robots
     # ---------------------------------------------------------
+
+    # ---------------------------------------------------------
+# 1. Robots
+# ---------------------------------------------------------
 
     robots_checker = RobotsChecker(client)
 
@@ -137,50 +142,65 @@ async def discover_payer(
             f"{robots_result.error}"
         )
 
-        notes.append(
-            "Skipped sitemap and HTML discovery because "
-            "robots.txt could not be validated"
-        )
+        if not ignore_robots:
+            notes.append(
+                "Skipped sitemap and HTML discovery because "
+                "robots.txt could not be validated"
+            )
 
-        return DiscoveryResult(
-            payer_name=payer_name,
-            seed_url=seed_url,
-            candidates=candidates,
-            pages_checked=pages_checked,
-            notes=notes,
-            status="blocked",
-        )
-
-    notes.append(
-        "robots.txt fetched successfully"
-    )
-
-    if robots_result.robots_blocked:
+            return DiscoveryResult(
+                payer_name=payer_name,
+                seed_url=seed_url,
+                candidates=candidates,
+                pages_checked=pages_checked,
+                notes=notes,
+                status="blocked",
+            )
 
         notes.append(
-            "robots.txt indicates crawling is blocked "
-            "for the crawler user-agent"
+            "Ignoring robots.txt validation failure "
+            "for this run"
         )
+
+    else:
 
         notes.append(
-            "Skipped sitemap and HTML discovery because "
-            "crawling is blocked"
+            "robots.txt fetched successfully"
         )
 
-        return DiscoveryResult(
-            payer_name=payer_name,
-            seed_url=seed_url,
-            candidates=candidates,
-            pages_checked=pages_checked,
-            notes=notes,
-            status="blocked",
-        )
+        if robots_result.robots_blocked and not ignore_robots:
 
-    notes.append(
-        "robots.txt allows crawling of the seed URL"
-    )
+            notes.append(
+                "robots.txt indicates crawling is blocked "
+                "for the crawler user-agent"
+            )
 
-    # ---------------------------------------------------------
+            notes.append(
+                "Skipped sitemap and HTML discovery because "
+                "crawling is blocked"
+            )
+
+            return DiscoveryResult(
+                payer_name=payer_name,
+                seed_url=seed_url,
+                candidates=candidates,
+                pages_checked=pages_checked,
+                notes=notes,
+                status="blocked",
+            )
+
+        if robots_result.robots_blocked:
+
+            notes.append(
+                "robots.txt crawling restriction ignored "
+                "for this run"
+            )
+
+        else:
+
+            notes.append(
+                "robots.txt allows crawling of the seed URL"
+            )    # ---------------------------------------------------------
     # 2. Sitemap discovery
     # ---------------------------------------------------------
 

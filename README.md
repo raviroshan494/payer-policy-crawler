@@ -235,10 +235,15 @@ pip install streamlit
 
 ## Running the Crawler
 
-Run the complete crawl with:
+Run the complete crawl with the default robots.txt behavior:
 
 ```bash
 payer-policy-crawler
+```
+For the evaluation run, where robots.txt restrictions are intentionally ignored:
+
+```bash
+payer-policy-crawler --ignore-robots
 ```
 
 Payers are configured in:

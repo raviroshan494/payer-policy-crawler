@@ -1,11 +1,13 @@
 import asyncio
 from pathlib import Path
-
 from payer_policy_crawler.checkpoint import Checkpoint
 from payer_policy_crawler.config import load_payers
 from payer_policy_crawler.http_client import HttpClient
 from payer_policy_crawler.output import write_records_csv
 from payer_policy_crawler.payer_runner import crawl_payer
+import argparse
+import asyncio
+from pathlib import Path
 from payer_policy_crawler.payer_storage import (
     load_all_payer_records,
     save_payer_records,
@@ -18,7 +20,7 @@ from payer_policy_crawler.summary import (
 )
 from payer_policy_crawler.dedup import deduplicate_records
 
-async def run() -> None:
+async def run(ignore_robots: bool = False) -> None:
     client = HttpClient()
     checkpoint = Checkpoint()
     logger = RunLogger()
@@ -32,6 +34,7 @@ async def run() -> None:
         logger.log(
             "run_started",
             payer_count=len(payers),
+            ignore_robots=ignore_robots,
         )
 
         for index, payer in enumerate(
@@ -103,6 +106,7 @@ async def run() -> None:
                     payer_name=payer_name,
                     seed_url=seed_url,
                     start_pages=[seed_url],
+                    ignore_robots=ignore_robots,
                 )
 
                 save_payer_records(
@@ -297,7 +301,23 @@ async def run() -> None:
 
 
 def main() -> None:
-    asyncio.run(run())
+    parser = argparse.ArgumentParser(
+        description="Public payer medical-policy document discovery crawler"
+    )
+
+    parser.add_argument(
+        "--ignore-robots",
+        action="store_true",
+        help="Ignore robots.txt crawl restrictions for this run",
+    )
+
+    args = parser.parse_args()
+
+    asyncio.run(
+        run(
+            ignore_robots=args.ignore_robots,
+        )
+    )
 
 
 if __name__ == "__main__":

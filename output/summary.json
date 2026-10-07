@@ -5,9 +5,9 @@
     "payers_failed": 0,
     "payers_pending": 0,
     "payers_running": 0,
-    "total_candidates": 1469,
-    "total_successful_documents": 1459,
-    "total_failed_documents": 10
+    "total_candidates": 1472,
+    "total_successful_documents": 1461,
+    "total_failed_documents": 11
   },
   "payers": [
     {
@@ -56,7 +56,7 @@
         "Discovered 5 sitemap(s)",
         "Sitemap produced 13255 URL(s)",
         "Failed to fetch 1 sitemap(s)",
-        "Checked 70 HTML page(s)",
+        "Checked 68 HTML page(s)",
         "Discovered 272 candidate document URL(s)",
         "Successfully processed 271 document(s)",
         "Failed/skipped 1 candidate(s)",
@@ -66,17 +66,17 @@
     {
       "payer_name": "UPMC Health Plan",
       "status": "completed",
-      "candidates": 82,
-      "successful_documents": 81,
+      "candidates": 83,
+      "successful_documents": 82,
       "failed_documents": 1,
       "notes": [
         "robots.txt fetched successfully",
         "robots.txt allows crawling of the seed URL",
         "Discovered 2 sitemap(s)",
-        "Sitemap produced 1644 URL(s)",
-        "Checked 84 HTML page(s)",
-        "Discovered 82 candidate document URL(s)",
-        "Successfully processed 81 document(s)",
+        "Sitemap produced 1647 URL(s)",
+        "Checked 86 HTML page(s)",
+        "Discovered 83 candidate document URL(s)",
+        "Successfully processed 82 document(s)",
         "Failed/skipped 1 candidate(s)",
         "Document concurrency: 10"
       ]
@@ -84,8 +84,8 @@
     {
       "payer_name": "Elevance / Anthem",
       "status": "completed",
-      "candidates": 1020,
-      "successful_documents": 1015,
+      "candidates": 1021,
+      "successful_documents": 1016,
       "failed_documents": 5,
       "notes": [
         "robots.txt fetched successfully",
@@ -94,21 +94,24 @@
         "Sitemap produced 1435 URL(s)",
         "Failed to fetch 1 sitemap(s)",
         "Checked 77 HTML page(s)",
-        "Discovered 1020 candidate document URL(s)",
-        "Successfully processed 1015 document(s)",
+        "Discovered 1021 candidate document URL(s)",
+        "Successfully processed 1016 document(s)",
         "Failed/skipped 5 candidate(s)",
         "Document concurrency: 10"
       ]
     },
     {
       "payer_name": "CareSource",
-      "status": "blocked",
+      "status": "no_documents_found",
       "candidates": 0,
       "successful_documents": 0,
       "failed_documents": 0,
       "notes": [
         "robots.txt unavailable or invalid: robots.txt returned HTTP 406",
-        "Skipped sitemap and HTML discovery because robots.txt could not be validated",
+        "Ignoring robots.txt validation failure for this run",
+        "robots.txt did not provide sitemap URLs",
+        "Checked 1 HTML page(s)",
+        "Discovered 0 candidate document URL(s)",
         "Successfully processed 0 document(s)",
         "Failed/skipped 0 candidate(s)",
         "Document concurrency: 10"
@@ -116,14 +119,17 @@
     },
     {
       "payer_name": "Centene",
-      "status": "blocked",
+      "status": "no_documents_found",
       "candidates": 0,
       "successful_documents": 0,
       "failed_documents": 0,
       "notes": [
         "robots.txt fetched successfully",
-        "robots.txt indicates crawling is blocked for the crawler user-agent",
-        "Skipped sitemap and HTML discovery because crawling is blocked",
+        "robots.txt crawling restriction ignored for this run",
+        "Discovered 1 sitemap(s)",
+        "Sitemap produced 215 URL(s)",
+        "Checked 7 HTML page(s)",
+        "Discovered 0 candidate document URL(s)",
         "Successfully processed 0 document(s)",
         "Failed/skipped 0 candidate(s)",
         "Document concurrency: 10"
@@ -131,13 +137,16 @@
     },
     {
       "payer_name": "Geisinger",
-      "status": "blocked",
+      "status": "no_documents_found",
       "candidates": 0,
       "successful_documents": 0,
       "failed_documents": 0,
       "notes": [
         "robots.txt unavailable or invalid: robots.txt redirected to a non-robots resource",
-        "Skipped sitemap and HTML discovery because robots.txt could not be validated",
+        "Ignoring robots.txt validation failure for this run",
+        "robots.txt did not provide sitemap URLs",
+        "Checked 1 HTML page(s)",
+        "Discovered 0 candidate document URL(s)",
         "Successfully processed 0 document(s)",
         "Failed/skipped 0 candidate(s)",
         "Document concurrency: 10"
@@ -146,30 +155,33 @@
     {
       "payer_name": "Highmark",
       "status": "completed",
-      "candidates": 59,
+      "candidates": 60,
       "successful_documents": 58,
-      "failed_documents": 1,
+      "failed_documents": 2,
       "notes": [
         "robots.txt fetched successfully",
         "robots.txt allows crawling of the seed URL",
         "Discovered 1 sitemap(s)",
         "Sitemap produced 1431 URL(s)",
         "Checked 88 HTML page(s)",
-        "Discovered 59 candidate document URL(s)",
+        "Discovered 60 candidate document URL(s)",
         "Successfully processed 58 document(s)",
-        "Failed/skipped 1 candidate(s)",
+        "Failed/skipped 2 candidate(s)",
         "Document concurrency: 10"
       ]
     },
     {
       "payer_name": "BCBST (BCBS Tennessee)",
-      "status": "blocked",
+      "status": "no_documents_found",
       "candidates": 0,
       "successful_documents": 0,
       "failed_documents": 0,
       "notes": [
         "robots.txt unavailable or invalid: robots.txt returned HTTP 403",
-        "Skipped sitemap and HTML discovery because robots.txt could not be validated",
+        "Ignoring robots.txt validation failure for this run",
+        "robots.txt did not provide sitemap URLs",
+        "Checked 1 HTML page(s)",
+        "Discovered 0 candidate document URL(s)",
         "Successfully processed 0 document(s)",
         "Failed/skipped 0 candidate(s)",
         "Document concurrency: 10"

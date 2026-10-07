@@ -102,6 +102,7 @@ async def crawl_payer(
     payer_name: str,
     seed_url: str,
     start_pages: list[str],
+    ignore_robots: bool = False,
 ) -> CrawlResult:
 
     discovery = await discover_payer(
@@ -109,6 +110,7 @@ async def crawl_payer(
         payer_name=payer_name,
         seed_url=seed_url,
         start_pages=start_pages,
+        ignore_robots=ignore_robots,
     )
 
     candidates = discovery.candidates
